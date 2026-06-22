@@ -1,2 +1,2 @@
-# ModernAndroidTemplate
-A template repository, which is used for creating modern Android project
+# NodeDev
+An Android Node.js IDE, aiming to create your awesome pieces of software conveniently

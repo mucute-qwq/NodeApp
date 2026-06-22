@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ModernAndroidTemplate"
+rootProject.name = "NodeDev"
 include(":app")
 include(":shared")

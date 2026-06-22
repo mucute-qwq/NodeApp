@@ -4,9 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "io.github.mucute.qwq.modernandroidtemplate"
+    namespace = "io.github.mucute.qwq.nodedev"
 }
 
 dependencies {
     implementation(project(":shared"))
+    coreLibraryDesugaring(libs.desugar)
 }

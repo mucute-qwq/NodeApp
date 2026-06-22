@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">主页</string>
+    <string name="settings">设置</string>
+    <string name="extensions">扩展</string>
+    <string name="instances">实例</string>
+</resources>
