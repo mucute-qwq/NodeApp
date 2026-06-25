@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "NodeDev"
+rootProject.name = "NodeApp"
 include(":app")
 include(":shared")
