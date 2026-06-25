@@ -1,16 +1,21 @@
 package io.github.mucute.qwq.nodedev.screen
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.retain.retain
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import io.github.mucute.qwq.nodedev.composition.local.LocalSnackBarState
 import io.github.mucute.qwq.nodedev.page.main.ExtensionsPage
 import io.github.mucute.qwq.nodedev.page.main.HomePage
@@ -19,8 +24,11 @@ import io.github.mucute.qwq.nodedev.page.main.SettingsPage
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Cottage
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Extension
-import top.yukonga.miuix.kmp.basic.FloatingNavigationBar
-import top.yukonga.miuix.kmp.basic.FloatingNavigationBarItem
+import io.github.mucute.qwq.nodedev.shared.ui.icons.FormatListBulleted
+import io.github.mucute.qwq.nodedev.shared.ui.icons.Settings
+import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeDevTheme
+import kotlinx.coroutines.launch
+import top.yukonga.miuix.kmp.basic.MiuixScrollBehavior
 import top.yukonga.miuix.kmp.basic.NavigationBar
 import top.yukonga.miuix.kmp.basic.NavigationBarDisplayMode
 import top.yukonga.miuix.kmp.basic.NavigationBarItem
@@ -28,11 +36,6 @@ import top.yukonga.miuix.kmp.basic.Scaffold
 import top.yukonga.miuix.kmp.basic.SnackbarHost
 import top.yukonga.miuix.kmp.basic.SnackbarHostState
 import top.yukonga.miuix.kmp.basic.TopAppBar
-import top.yukonga.miuix.kmp.icon.MiuixIcons
-import top.yukonga.miuix.kmp.icon.extended.Blocklist
-import top.yukonga.miuix.kmp.icon.extended.ListView
-import top.yukonga.miuix.kmp.icon.extended.More
-import top.yukonga.miuix.kmp.icon.extended.Settings
 
 @Immutable
 private enum class Page(
@@ -41,22 +44,27 @@ private enum class Page(
     val content: @Composable () -> Unit
 ) {
 
-    Home(MiuixIcons.Cottage, R.string.home, ::HomePage),
-    Instances(MiuixIcons.ListView, R.string.instances, ::InstancesPage),
-    Extensions(MiuixIcons.Extension, R.string.extensions, ::ExtensionsPage),
-    Settings(MiuixIcons.Settings, R.string.settings, ::SettingsPage)
+    Home(Icons.Rounded.Cottage, R.string.home, ::HomePage),
+    Instances(Icons.Rounded.FormatListBulleted, R.string.instances, ::InstancesPage),
+    Extensions(Icons.Rounded.Extension, R.string.extensions, ::ExtensionsPage),
+    Settings(Icons.Rounded.Settings, R.string.settings, ::SettingsPage)
 
 }
 
 @Composable
 fun MainScreen() {
-    var selectedPage by retain { mutableStateOf(Page.Home) }
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = MiuixScrollBehavior()
     val snackBarHostState = retain { SnackbarHostState() }
+    val pagerState =
+        rememberPagerState(initialPage = 0) { Page.entries.size }
+
     CompositionLocalProvider(LocalSnackBarState provides snackBarHostState) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = stringResource(R.string.app_name)
+                    title = stringResource(R.string.app_name),
+                    scrollBehavior = scrollBehavior
                 )
             },
             bottomBar = {
@@ -65,8 +73,12 @@ fun MainScreen() {
                 ) {
                     Page.entries.forEach { page ->
                         NavigationBarItem(
-                            selected = page === selectedPage,
-                            onClick = { selectedPage = page },
+                            selected = page.ordinal == pagerState.targetPage,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(page.ordinal)
+                                }
+                            },
                             icon = page.icon,
                             label = stringResource(page.labelResId)
                         )
@@ -75,9 +87,26 @@ fun MainScreen() {
             },
             snackbarHost = {
                 SnackbarHost(snackBarHostState)
-            }
+            },
+            modifier = Modifier
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
         ) {
-            selectedPage.content()
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier
+                    .padding(it)
+                    .fillMaxSize()
+            ) { currentPage ->
+                Page.entries[currentPage].content()
+            }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun MainScreenPreview() {
+    NodeDevTheme {
+        MainScreen()
     }
 }

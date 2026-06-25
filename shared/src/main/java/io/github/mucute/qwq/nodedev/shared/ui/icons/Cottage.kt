@@ -1,7 +1,6 @@
-@file:Suppress("ObjectPropertyName")
-
 package io.github.mucute.qwq.nodedev.shared.ui.icons
 
+import androidx.compose.material.icons.Icons
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.SolidColor
@@ -10,10 +9,9 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import top.yukonga.miuix.kmp.icon.MiuixIcons
 
 @Suppress("CheckReturnValue")
-val MiuixIcons.Cottage: ImageVector
+val Icons.Rounded.Cottage: ImageVector
     get() {
         if (_cottage != null) {
             return _cottage!!
@@ -38,50 +36,74 @@ val MiuixIcons.Cottage: ImageVector
                         strokeLineMiter = 1f,
                         pathFillType = PathFillType.NonZero,
                     ) {
-                        moveTo(4f, 21f)
+                        moveTo(4f, 19f)
                         verticalLineTo(11.63f)
-                        lineTo(2.2f, 13f)
-                        lineTo(1f, 11.4f)
+                        lineTo(3f, 12.4f)
+                        quadTo(2.65f, 12.65f, 2.25f, 12.6f)
+                        reflectiveQuadTo(1.6f, 12.2f)
+                        reflectiveQuadTo(1.4f, 11.45f)
+                        reflectiveQuadTo(1.78f, 10.8f)
                         lineTo(4f, 9.1f)
-                        verticalLineTo(6f)
-                        horizontalLineTo(6f)
+                        verticalLineTo(7f)
+                        quadTo(4f, 6.57f, 4.29f, 6.29f)
+                        reflectiveQuadTo(5f, 6f)
+                        reflectiveQuadTo(5.71f, 6.29f)
+                        reflectiveQuadTo(6f, 7f)
                         verticalLineTo(7.57f)
-                        lineTo(12f, 3f)
-                        lineToRelative(11f, 8.4f)
-                        lineToRelative(-1.2f, 1.58f)
+                        lineTo(10.78f, 3.92f)
+                        quadTo(11.33f, 3.5f, 12f, 3.5f)
+                        reflectiveQuadToRelative(1.23f, 0.42f)
+                        lineToRelative(9f, 6.88f)
+                        quadToRelative(0.32f, 0.25f, 0.38f, 0.65f)
+                        reflectiveQuadTo(22.4f, 12.2f)
+                        quadToRelative(-0.25f, 0.32f, -0.65f, 0.38f)
+                        reflectiveQuadToRelative(-0.72f, -0.2f)
                         lineTo(20f, 11.63f)
-                        verticalLineTo(21f)
-                        horizontalLineTo(4f)
+                        verticalLineTo(19f)
+                        quadToRelative(0f, 0.82f, -0.59f, 1.41f)
+                        reflectiveQuadTo(18f, 21f)
+                        horizontalLineTo(6f)
+                        quadTo(5.18f, 21f, 4.59f, 20.41f)
+                        reflectiveQuadTo(4f, 19f)
                         close()
-                        moveTo(6f, 19f)
+                        moveToRelative(2f, 0f)
                         horizontalLineToRelative(5f)
-                        verticalLineTo(15f)
-                        horizontalLineToRelative(2f)
-                        verticalLineToRelative(4f)
+                        verticalLineTo(16f)
+                        quadToRelative(0f, -0.43f, 0.29f, -0.71f)
+                        reflectiveQuadTo(12f, 15f)
+                        reflectiveQuadToRelative(0.71f, 0.29f)
+                        reflectiveQuadTo(13f, 16f)
+                        verticalLineToRelative(3f)
                         horizontalLineToRelative(5f)
                         verticalLineTo(10.1f)
                         lineTo(12f, 5.52f)
                         lineTo(6f, 10.1f)
                         verticalLineTo(19f)
                         close()
-                        moveTo(4f, 5f)
-                        quadTo(4f, 3.75f, 4.88f, 2.88f)
-                        reflectiveQuadTo(7f, 2f)
-                        quadTo(7.43f, 2f, 7.71f, 1.71f)
-                        reflectiveQuadTo(8f, 1f)
-                        horizontalLineToRelative(2f)
-                        quadTo(10f, 2.25f, 9.13f, 3.13f)
-                        reflectiveQuadTo(7f, 4f)
-                        quadTo(6.58f, 4f, 6.29f, 4.29f)
-                        reflectiveQuadTo(6f, 5f)
-                        horizontalLineTo(4f)
-                        close()
-                        moveTo(6f, 19f)
+                        moveToRelative(0f, 0f)
                         horizontalLineToRelative(5f)
                         horizontalLineToRelative(2f)
                         horizontalLineToRelative(5f)
                         horizontalLineTo(12f)
                         horizontalLineTo(6f)
+                        close()
+                        moveTo(5.3f, 5f)
+                        quadTo(4.73f, 5f, 4.41f, 4.52f)
+                        reflectiveQuadTo(4.38f, 3.55f)
+                        quadTo(4.8f, 2.82f, 5.49f, 2.41f)
+                        reflectiveQuadTo(7f, 2f)
+                        quadTo(7.28f, 2f, 7.53f, 1.86f)
+                        reflectiveQuadTo(7.9f, 1.47f)
+                        quadTo(8.03f, 1.25f, 8.24f, 1.13f)
+                        reflectiveQuadTo(8.73f, 1f)
+                        quadTo(9.3f, 1f, 9.6f, 1.47f)
+                        reflectiveQuadTo(9.63f, 2.45f)
+                        quadTo(9.2f, 3.17f, 8.51f, 3.59f)
+                        reflectiveQuadTo(7f, 4f)
+                        quadTo(6.73f, 4f, 6.48f, 4.13f)
+                        reflectiveQuadTo(6.1f, 4.52f)
+                        quadTo(5.98f, 4.75f, 5.78f, 4.88f)
+                        reflectiveQuadTo(5.3f, 5f)
                         close()
                     }
                 }

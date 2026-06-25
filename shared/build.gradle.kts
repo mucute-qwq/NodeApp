@@ -20,7 +20,6 @@ dependencies {
     api(libs.material.icons.core)
     api(libs.miuix.ui)
     api(libs.miuix.preference)
-    api(libs.miuix.icons)
     api(libs.miuix.squircle)
     api(libs.miuix.navigation3.ui)
     api(platform(libs.editor.bom))
