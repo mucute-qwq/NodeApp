@@ -1,5 +1,6 @@
 package io.github.mucute.qwq.nodedev.page.main
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,38 +10,48 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
+import androidx.compose.foundation.style.styleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForward
-import androidx.compose.material.icons.rounded.Create
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Package2
-import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeDevTheme
+import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeAppTheme
+import io.github.mucute.qwq.nodedev.ui.PreviewBox
 import top.yukonga.miuix.kmp.basic.Card
 import top.yukonga.miuix.kmp.basic.CardDefaults
+import top.yukonga.miuix.kmp.basic.DropdownEntry
+import top.yukonga.miuix.kmp.basic.DropdownItem
 import top.yukonga.miuix.kmp.basic.Icon
-import top.yukonga.miuix.kmp.basic.IconButton
 import top.yukonga.miuix.kmp.basic.Text
+import top.yukonga.miuix.kmp.menu.WindowIconDropdownMenu
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 import top.yukonga.miuix.kmp.utils.PressFeedbackType
 
-@OptIn(ExperimentalFlexBoxApi::class)
+@OptIn(ExperimentalFlexBoxApi::class, ExperimentalFoundationStyleApi::class)
 @Composable
 fun HomePage() {
     Column(
         Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .styleable {
+                contentPadding(16.dp)
+            },
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         NewProjectCard {
@@ -81,6 +92,7 @@ private fun NewProjectCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            Icon(Icons.Rounded.Star, null)
             Column(Modifier.weight(1f)) {
                 Text(
                     stringResource(R.string.new_project),
@@ -103,10 +115,24 @@ private fun NewProjectCard(
     }
 }
 
+@SuppressLint("LocalContextGetResourceValueCall")
 @Composable
 private fun ProjectCard(
     onEnterProject: () -> Unit
 ) {
+    val resources = LocalResources.current
+    val dropdownEntry = remember(resources) {
+        DropdownEntry(
+            listOf(
+                DropdownItem(resources.getString(R.string.rename), icon = {
+                    Icon(Icons.Rounded.Edit, null, modifier = it.size(20.dp))
+                }),
+                DropdownItem(resources.getString(R.string.delete), icon = {
+                    Icon(Icons.Rounded.Delete, null, modifier = it.size(20.dp))
+                }),
+            )
+        )
+    }
     Card(
         onClick = onEnterProject,
         insideMargin = PaddingValues(16.dp),
@@ -132,10 +158,9 @@ private fun ProjectCard(
                     style = MiuixTheme.textStyles.body2
                 )
             }
-            IconButton(
-                onClick = {
 
-                }
+            WindowIconDropdownMenu(
+                entry = dropdownEntry
             ) {
                 Icon(Icons.Rounded.MoreVert, null)
             }
@@ -146,9 +171,7 @@ private fun ProjectCard(
 @Preview
 @Composable
 private fun HomePagePreview() {
-    NodeDevTheme {
-        Box(Modifier.background(MiuixTheme.colorScheme.surface)) {
-            HomePage()
-        }
+    PreviewBox {
+        HomePage()
     }
 }

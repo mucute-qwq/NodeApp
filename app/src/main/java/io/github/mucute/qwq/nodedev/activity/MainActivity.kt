@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import io.github.mucute.qwq.nodedev.navigation.Navigation
-import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeDevTheme
+import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeAppTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            NodeDevTheme {
+            NodeAppTheme {
                 Navigation()
 
             }

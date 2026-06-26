@@ -26,7 +26,7 @@ import io.github.mucute.qwq.nodedev.shared.ui.icons.Cottage
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Extension
 import io.github.mucute.qwq.nodedev.shared.ui.icons.FormatListBulleted
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Settings
-import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeDevTheme
+import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeAppTheme
 import kotlinx.coroutines.launch
 import top.yukonga.miuix.kmp.basic.MiuixScrollBehavior
 import top.yukonga.miuix.kmp.basic.NavigationBar
@@ -57,7 +57,7 @@ fun MainScreen() {
     val scrollBehavior = MiuixScrollBehavior()
     val snackBarHostState = retain { SnackbarHostState() }
     val pagerState =
-        rememberPagerState(initialPage = 0) { Page.entries.size }
+        rememberPagerState(initialPage = Page.Settings.ordinal) { Page.entries.size }
 
     CompositionLocalProvider(LocalSnackBarState provides snackBarHostState) {
         Scaffold(
@@ -106,7 +106,7 @@ fun MainScreen() {
 @Preview
 @Composable
 private fun MainScreenPreview() {
-    NodeDevTheme {
+    NodeAppTheme {
         MainScreen()
     }
 }

@@ -7,4 +7,36 @@
     <string name="instances">Instances</string>
     <string name="new_project">New Project</string>
     <string name="new_project_content">Create your wonderful APP right now!</string>
+    <string name="rename">Rename</string>
+    <string name="delete">Delete</string>
+    <string name="build_and_run">Build &amp; Run</string>
+    <string name="theme">Theme</string>
+    <string name="app_theme">App Theme</string>
+    <string name="follow_system">Follow System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="monet_color">Monet Color</string>
+    <string name="more">More</string>
+    <string name="about">About</string>
+    <string name="developer_options">Developer Options</string>
+    <string name="record_log">Record Log</string>
+    <string name="monet_color_summary">Allows the use of Monet\'s color picker to implement dynamic themes</string>
+    <string name="record_log_summary">Allows for detailed logging for debugging</string>
+    <string name="general">General</string>
+    <string name="language">Language</string>
+    <string name="language_zh" translatable="false">中文</string>
+    <string name="language_en" translatable="false">English</string>
+    <string name="app_theme_summary">Set the global appearance theme for the application</string>
+    <string name="language_summary">Set the application\'s global language</string>
+    <string name="experimental_features">Experimental Features</string>
+    <string name="typescript_run">TypeScript Compile &amp; Run</string>
+    <string name="typescript_run_summary">Compile and run TypeScript directly using Node.js parameters</string>
+    <string name="code_editor_theme">Code Editor Theme</string>
+    <string name="code_editor_theme_summary">Set the global appearance theme for the editor</string>
+    <string name="syntax_highlight">Syntax Highlight</string>
+    <string name="syntax_highlight_summary">Color-coding based on language grammar</string>
+    <string name="color_preview">Color Preview</string>
+    <string name="color_preview_summary">Display a preview of the color values, for example, #FFF and #000000 represent white and black, respectively</string>
+    <string name="line_highlight">Line Highlight</string>
+    <string name="line_highlight_summary">Highlight the line where the cursor is currently located</string>
 </resources>
