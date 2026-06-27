@@ -16,13 +16,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.icons.BrightnessAuto
 import io.github.mucute.qwq.nodedev.shared.ui.icons.DarkMode
 import io.github.mucute.qwq.nodedev.shared.ui.icons.LightMode
-import io.github.mucute.qwq.nodedev.ui.PreviewBox
 import top.yukonga.miuix.kmp.basic.Card
 import top.yukonga.miuix.kmp.basic.DropdownItem
 import top.yukonga.miuix.kmp.basic.Icon
@@ -97,6 +95,11 @@ private fun ThemePreferenceGroup() {
 @Composable
 private fun GeneralPreferenceGroup() {
     val resources = LocalResources.current
+    val codeEditorFontDropdownItems = remember {
+        listOf(
+            DropdownItem("JetBrains Mono")
+        )
+    }
     val languageDropdownItems = remember(resources) {
         listOf(
             DropdownItem(resources.getString(R.string.language_en)),
@@ -111,6 +114,13 @@ private fun GeneralPreferenceGroup() {
             title = stringResource(R.string.language),
             summary = stringResource(R.string.language_summary),
             items = languageDropdownItems,
+            selectedIndex = 0,
+            onSelectedIndexChange = {},
+        )
+        WindowSpinnerPreference(
+            title = stringResource(R.string.code_editor_font),
+            summary = stringResource(R.string.code_editor_theme_summary),
+            items = codeEditorFontDropdownItems,
             selectedIndex = 0,
             onSelectedIndexChange = {},
         )
@@ -138,7 +148,22 @@ private fun GeneralPreferenceGroup() {
 
             }
         )
+        SwitchPreference(
+            title = stringResource(R.string.word_wrap),
+            summary = stringResource(R.string.word_wrap_summary),
+            checked = false,
+            onCheckedChange = {
 
+            }
+        )
+        SwitchPreference(
+            title = stringResource(R.string.cursor_animation),
+            summary = stringResource(R.string.cursor_animation_summary),
+            checked = false,
+            onCheckedChange = {
+
+            }
+        )
     }
 }
 
@@ -215,13 +240,5 @@ private fun PreferenceGroup(
                 },
             content = content
         )
-    }
-}
-
-@Preview
-@Composable
-private fun SettingsPagePreview() {
-    PreviewBox {
-        SettingsPage()
     }
 }

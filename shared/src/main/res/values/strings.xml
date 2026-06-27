@@ -39,4 +39,13 @@
     <string name="color_preview_summary">Display a preview of the color values, for example, #FFF and #000000 represent white and black, respectively</string>
     <string name="line_highlight">Line Highlight</string>
     <string name="line_highlight_summary">Highlight the line where the cursor is currently located</string>
+    <string name="code_editor_font">Code Editor Font</string>
+    <string name="code_editor_font_summary">Set the global appearance font of the editor</string>
+    <string name="word_wrap">Word Wrap</string>
+    <string name="word_wrap_summary">Automatically truncate and wrap horizontal text that exceeds the screen</string>
+    <string name="cursor_animation">Cursor Animation</string>
+    <string name="cursor_animation_summary">Enable smoother cursor movement animation</string>
+    <string name="todo">Todo</string>
+    <string name="todo_summary">Not Implemented</string>
+    <string name="project_list">Project List</string>
 </resources>

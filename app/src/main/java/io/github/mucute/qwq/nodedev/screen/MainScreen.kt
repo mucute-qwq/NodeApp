@@ -64,6 +64,7 @@ fun MainScreen() {
             topBar = {
                 TopAppBar(
                     title = stringResource(R.string.app_name),
+                    subtitle = stringResource(Page.entries[pagerState.targetPage].labelResId),
                     scrollBehavior = scrollBehavior
                 )
             },

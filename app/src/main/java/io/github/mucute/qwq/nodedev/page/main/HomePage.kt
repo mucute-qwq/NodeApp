@@ -1,7 +1,6 @@
 package io.github.mucute.qwq.nodedev.page.main
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,17 +26,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Package2
-import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeAppTheme
-import io.github.mucute.qwq.nodedev.ui.PreviewBox
 import top.yukonga.miuix.kmp.basic.Card
 import top.yukonga.miuix.kmp.basic.CardDefaults
 import top.yukonga.miuix.kmp.basic.DropdownEntry
 import top.yukonga.miuix.kmp.basic.DropdownItem
 import top.yukonga.miuix.kmp.basic.Icon
+import top.yukonga.miuix.kmp.basic.SmallTitle
 import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.menu.WindowIconDropdownMenu
 import top.yukonga.miuix.kmp.theme.MiuixTheme
@@ -58,14 +55,18 @@ fun HomePage() {
 
         }
 
-        Card {
-            LazyColumn(
-                Modifier
-                    .fillMaxSize(),
-            ) {
-                items(20) {
-                    ProjectCard {
+        Column {
+            SmallTitle(stringResource(R.string.project_list))
 
+            Card {
+                LazyColumn(
+                    Modifier
+                        .fillMaxSize(),
+                ) {
+                    items(20) {
+                        ProjectCard {
+
+                        }
                     }
                 }
             }
@@ -165,13 +166,5 @@ private fun ProjectCard(
                 Icon(Icons.Rounded.MoreVert, null)
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun HomePagePreview() {
-    PreviewBox {
-        HomePage()
     }
 }
