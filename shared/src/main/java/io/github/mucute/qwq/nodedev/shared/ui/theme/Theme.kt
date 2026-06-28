@@ -8,11 +8,11 @@ import top.yukonga.miuix.kmp.theme.ThemeController
 
 @Composable
 fun NodeAppTheme(
+    controller: ThemeController = retain { ThemeController(ColorSchemeMode.System) },
     content: @Composable () -> Unit
 ) {
-    val themeController = retain { ThemeController(ColorSchemeMode.System) }
     MiuixTheme(
-        controller = themeController,
+        controller = controller,
         content = content
     )
 }

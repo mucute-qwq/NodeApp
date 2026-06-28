@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    api(libs.kotlinx.coroutines.android)
     api(libs.androidx.core.ktx)
     api(libs.androidx.lifecycle.runtime.ktx)
     api(libs.androidx.activity.compose)
@@ -17,6 +18,7 @@ dependencies {
     api(libs.androidx.compose.ui.tooling.preview)
     api(libs.androidx.compose.material3)
     api(libs.androidx.navigation3.runtime)
+    api(libs.androidx.lifecycle.viewmodel.compose)
     api(libs.material.icons.extended)
     api(libs.miuix.ui)
     api(libs.miuix.preference)

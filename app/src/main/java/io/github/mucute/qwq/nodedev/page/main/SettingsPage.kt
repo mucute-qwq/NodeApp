@@ -11,13 +11,21 @@ import androidx.compose.material.icons.rounded.BrightnessAuto
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.component.PreferenceGroup
+import io.github.mucute.qwq.nodedev.viewmodel.AppThemeMode
+import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
+import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
+import kotlinx.coroutines.launch
 import top.yukonga.miuix.kmp.basic.DropdownItem
 import top.yukonga.miuix.kmp.basic.Icon
 import top.yukonga.miuix.kmp.preference.ArrowPreference
@@ -43,6 +51,7 @@ fun SettingsPage() {
 
 @Composable
 private fun ThemePreferenceGroup() {
+    val coroutineScope = rememberCoroutineScope()
     val resources = LocalResources.current
     val appThemeDropdownItems = remember(resources) {
         listOf(
@@ -57,7 +66,16 @@ private fun ThemePreferenceGroup() {
             }),
         )
     }
+    val codeEditorDropdownItems = remember(resources) {
+        listOf(
+            DropdownItem(resources.getString(R.string.follow_system), icon = {
+                Icon(Icons.Rounded.BrightnessAuto, null, modifier = it.size(20.dp))
+            }),
+        )
+    }
 
+    val nodeAppViewModel: NodeAppViewModel = viewModel()
+    val nodeAppState by nodeAppViewModel.state.collectAsStateWithLifecycle()
 
     PreferenceGroup(
         text = stringResource(R.string.theme)
@@ -66,22 +84,38 @@ private fun ThemePreferenceGroup() {
             title = stringResource(R.string.app_theme),
             summary = stringResource(R.string.app_theme_summary),
             items = appThemeDropdownItems,
-            selectedIndex = 0,
-            onSelectedIndexChange = {},
+            selectedIndex = nodeAppState.appThemeMode.ordinal,
+            onSelectedIndexChange = {
+                coroutineScope.launch {
+                    nodeAppViewModel.intent.send(
+                        NodeAppIntent.ChangeAppThemeMode(
+                            AppThemeMode.entries[it],
+                            nodeAppState.appThemeMonetColor
+                        )
+                    )
+                }
+            },
         )
         WindowSpinnerPreference(
             title = stringResource(R.string.code_editor_theme),
             summary = stringResource(R.string.code_editor_theme_summary),
-            items = appThemeDropdownItems,
+            items = codeEditorDropdownItems,
             selectedIndex = 0,
             onSelectedIndexChange = {},
         )
         SwitchPreference(
             title = stringResource(R.string.monet_color),
             summary = stringResource(R.string.monet_color_summary),
-            checked = false,
+            checked = nodeAppState.appThemeMonetColor,
             onCheckedChange = {
-
+                coroutineScope.launch {
+                    nodeAppViewModel.intent.send(
+                        NodeAppIntent.ChangeAppThemeMode(
+                            nodeAppState.appThemeMode,
+                            !nodeAppState.appThemeMonetColor
+                        )
+                    )
+                }
             }
         )
     }
