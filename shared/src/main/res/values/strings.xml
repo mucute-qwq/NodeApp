@@ -6,7 +6,7 @@
     <string name="extensions">Extensions</string>
     <string name="instances">Instances</string>
     <string name="new_project">New Project</string>
-    <string name="new_project_content">Create your wonderful APP right now!</string>
+    <string name="new_project_summary">Create your wonderful APP right now!</string>
     <string name="rename">Rename</string>
     <string name="delete">Delete</string>
     <string name="build_and_run">Build &amp; Run</string>
@@ -48,4 +48,10 @@
     <string name="todo">Todo</string>
     <string name="todo_summary">Not Implemented</string>
     <string name="project_list">Project List</string>
+    <string name="ui_and_ux">UI &amp; UX</string>
+    <string name="ui_and_ux_summary">Learn and improve UI and UX to enhance user experience</string>
+    <string name="web_platform_ui_summary">Develop using Web platform UI (HTML + CSS + JavaScript)</string>
+    <string name="web_platform_ui">Web Platform UI</string>
+    <string name="android_platform_ui">Android Platform UI</string>
+    <string name="android_platform_ui_summary">Develop using Android platform UI (Views + JavaScript)</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="extensions">扩展</string>
     <string name="instances">实例</string>
     <string name="new_project">新建项目</string>
-    <string name="new_project_content">立即创建您的精彩 APP！</string>
+    <string name="new_project_summary">立即创建您的精彩 APP！</string>
     <string name="rename">重命名</string>
     <string name="delete">删除</string>
     <string name="build_and_run">构建 &amp; 运行</string>
@@ -45,4 +45,10 @@
     <string name="todo">待做</string>
     <string name="todo_summary">未实现</string>
     <string name="project_list">项目列表</string>
+    <string name="ui_and_ux">UI &amp; UX</string>
+    <string name="ui_and_ux_summary">学习并提升 UI 和 UX，促进用户体验</string>
+    <string name="web_platform_ui_summary">使用 Web 平台 UI（HTML + CSS + JavaScript）进行开发</string>
+    <string name="web_platform_ui">Web 平台 UI</string>
+    <string name="android_platform_ui">Android 平台 UI</string>
+    <string name="android_platform_ui_summary">使用 Android 平台 UI（Views + JavaScript）进行开发</string>
 </resources>

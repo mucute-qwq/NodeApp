@@ -2,13 +2,9 @@ package io.github.mucute.qwq.nodedev.page.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
-import androidx.compose.foundation.style.fillWidth
-import androidx.compose.foundation.style.styleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
@@ -18,13 +14,12 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.mucute.qwq.nodedev.shared.R
+import io.github.mucute.qwq.nodedev.shared.ui.component.PreferenceGroup
 import io.github.mucute.qwq.nodedev.shared.ui.icons.BrightnessAuto
 import io.github.mucute.qwq.nodedev.shared.ui.icons.DarkMode
 import io.github.mucute.qwq.nodedev.shared.ui.icons.LightMode
-import top.yukonga.miuix.kmp.basic.Card
 import top.yukonga.miuix.kmp.basic.DropdownItem
 import top.yukonga.miuix.kmp.basic.Icon
-import top.yukonga.miuix.kmp.basic.SmallTitle
 import top.yukonga.miuix.kmp.preference.ArrowPreference
 import top.yukonga.miuix.kmp.preference.SwitchPreference
 import top.yukonga.miuix.kmp.preference.WindowSpinnerPreference
@@ -220,25 +215,6 @@ private fun MorePreferenceGroup() {
             onClick = {
 
             }
-        )
-    }
-}
-
-@OptIn(ExperimentalFoundationStyleApi::class)
-@Composable
-private fun PreferenceGroup(
-    text: String,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column {
-        SmallTitle(text)
-        Card(
-            Modifier
-                .styleable {
-                    contentPadding(horizontal = 16.dp, vertical = 0.dp)
-                    fillWidth()
-                },
-            content = content
         )
     }
 }
