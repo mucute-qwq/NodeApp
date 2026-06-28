@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Book
+import androidx.compose.material.icons.rounded.Cottage
+import androidx.compose.material.icons.rounded.Extension
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -19,13 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import io.github.mucute.qwq.nodedev.composition.local.LocalSnackBarState
 import io.github.mucute.qwq.nodedev.page.main.ExtensionsPage
 import io.github.mucute.qwq.nodedev.page.main.HomePage
-import io.github.mucute.qwq.nodedev.page.main.InstancesPage
+import io.github.mucute.qwq.nodedev.page.main.LearningPage
 import io.github.mucute.qwq.nodedev.page.main.SettingsPage
 import io.github.mucute.qwq.nodedev.shared.R
-import io.github.mucute.qwq.nodedev.shared.ui.icons.Cottage
-import io.github.mucute.qwq.nodedev.shared.ui.icons.Extension
-import io.github.mucute.qwq.nodedev.shared.ui.icons.FormatListBulleted
-import io.github.mucute.qwq.nodedev.shared.ui.icons.Settings
 import io.github.mucute.qwq.nodedev.shared.ui.theme.NodeAppTheme
 import kotlinx.coroutines.launch
 import top.yukonga.miuix.kmp.basic.MiuixScrollBehavior
@@ -45,7 +45,7 @@ private enum class Page(
 ) {
 
     Home(Icons.Rounded.Cottage, R.string.home, ::HomePage),
-    Instances(Icons.Rounded.FormatListBulleted, R.string.instances, ::InstancesPage),
+    Learning(Icons.Rounded.Book, R.string.learning, ::LearningPage),
     Extensions(Icons.Rounded.Extension, R.string.extensions, ::ExtensionsPage),
     Settings(Icons.Rounded.Settings, R.string.settings, ::SettingsPage)
 
@@ -57,7 +57,7 @@ fun MainScreen() {
     val scrollBehavior = MiuixScrollBehavior()
     val snackBarHostState = retain { SnackbarHostState() }
     val pagerState =
-        rememberPagerState(initialPage = Page.Instances.ordinal) { Page.entries.size }
+        rememberPagerState(initialPage = Page.Extensions.ordinal) { Page.entries.size }
 
     CompositionLocalProvider(LocalSnackBarState provides snackBarHostState) {
         Scaffold(

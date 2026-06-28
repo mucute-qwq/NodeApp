@@ -4,7 +4,7 @@
     <string name="home">Home</string>
     <string name="settings">Settings</string>
     <string name="extensions">Extensions</string>
-    <string name="instances">Instances</string>
+    <string name="learning">Learning</string>
     <string name="new_project">New Project</string>
     <string name="new_project_summary">Create your wonderful APP right now!</string>
     <string name="rename">Rename</string>
@@ -54,4 +54,13 @@
     <string name="web_platform_ui">Web Platform UI</string>
     <string name="android_platform_ui">Android Platform UI</string>
     <string name="android_platform_ui_summary">Develop using Android platform UI (Views + JavaScript)</string>
+    <string name="import_extension">Import Extension</string>
+    <string name="import_extension_summary">Import your plugin from local storage</string>
+    <string name="plugin_list">Plugin List</string>
+    <string name="installed_plugin_list">Installed Plugin List</string>
+    <string name="pinned_project_list">Pinned Project List</string>
+    <string name="pin">Pin</string>
+    <string name="getting_started">Getting Started</string>
+    <string name="learn_nodejs">Learn Node.js</string>
+    <string name="learn_nodejs_summary">Understand the use cases of Node.js and how to easily complete software development using NodeApp</string>
 </resources>

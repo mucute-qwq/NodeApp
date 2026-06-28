@@ -36,6 +36,7 @@ import top.yukonga.miuix.kmp.basic.CardDefaults
 import top.yukonga.miuix.kmp.basic.DropdownEntry
 import top.yukonga.miuix.kmp.basic.HorizontalDivider
 import top.yukonga.miuix.kmp.basic.Icon
+import top.yukonga.miuix.kmp.basic.IconButton
 import top.yukonga.miuix.kmp.basic.SmallTitle
 import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.menu.WindowIconDropdownMenu
@@ -100,11 +101,17 @@ inline fun ExpandableCard(
             BasicCardItem(
                 leadingIcon = {
                     leadingIcon?.let {
-                        Icon(it, null)
+                        Icon(it, null, modifier = Modifier.size(24.dp))
                     }
                 },
                 trailingIcon = {
-                    Icon(Icons.Rounded.KeyboardArrowDown, null, modifier = Modifier.rotate(degrees))
+                    Icon(
+                        Icons.Rounded.KeyboardArrowDown,
+                        null,
+                        modifier = Modifier
+                            .size(24.dp)
+                            .rotate(degrees)
+                    )
                 },
                 cornerRadius = 0.dp,
                 pressFeedbackType = PressFeedbackType.None,
@@ -189,6 +196,46 @@ inline fun CardItem(
         trailingIcon = {
             trailingIcon?.let {
                 Icon(it, null)
+            }
+        },
+        cornerRadius = cornerRadius,
+        pressFeedbackType = pressFeedbackType,
+        showIndication = showIndication,
+        colors = colors,
+        title = title,
+        summary = summary,
+        onClick = onClick
+    )
+}
+
+@Composable
+inline fun IconButtonCardItem(
+    leadingIcon: ImageVector? = null,
+    trailingIcon: ImageVector? = null,
+    cornerRadius: Dp = 0.dp,
+    pressFeedbackType: PressFeedbackType = PressFeedbackType.None,
+    showIndication: Boolean = true,
+    colors: CardColors = CardDefaults.defaultColors(),
+    title: String,
+    summary: String? = null,
+    crossinline onClick: () -> Unit,
+    crossinline onIconClick: () -> Unit
+) {
+    BasicCardItem(
+        leadingIcon = {
+            leadingIcon?.let {
+                Icon(it, null)
+            }
+        },
+        trailingIcon = {
+            trailingIcon?.let {
+                IconButton(
+                    onClick = {
+                        onIconClick()
+                    }
+                ) {
+                    Icon(it, null)
+                }
             }
         },
         cornerRadius = cornerRadius,

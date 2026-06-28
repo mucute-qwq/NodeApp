@@ -17,7 +17,7 @@ dependencies {
     api(libs.androidx.compose.ui.tooling.preview)
     api(libs.androidx.compose.material3)
     api(libs.androidx.navigation3.runtime)
-    api(libs.material.icons.core)
+    api(libs.material.icons.extended)
     api(libs.miuix.ui)
     api(libs.miuix.preference)
     api(libs.miuix.squircle)

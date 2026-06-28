@@ -3,7 +3,7 @@
     <string name="home">主页</string>
     <string name="settings">设置</string>
     <string name="extensions">扩展</string>
-    <string name="instances">实例</string>
+    <string name="learning">学习</string>
     <string name="new_project">新建项目</string>
     <string name="new_project_summary">立即创建您的精彩 APP！</string>
     <string name="rename">重命名</string>
@@ -51,4 +51,13 @@
     <string name="web_platform_ui">Web 平台 UI</string>
     <string name="android_platform_ui">Android 平台 UI</string>
     <string name="android_platform_ui_summary">使用 Android 平台 UI（Views + JavaScript）进行开发</string>
+    <string name="import_extension">导入插件</string>
+    <string name="import_extension_summary">从本地存储中导入您的插件</string>
+    <string name="plugin_list">插件列表</string>
+    <string name="installed_plugin_list">已安装插件列表</string>
+    <string name="pinned_project_list">已顶置的项目列表</string>
+    <string name="pin">顶置</string>
+    <string name="getting_started">入门</string>
+    <string name="learn_nodejs">了解 Node.js</string>
+    <string name="learn_nodejs_summary">了解 Node.js 的使用场景，以及使用 NodeApp 便捷地完成软件开发</string>
 </resources>

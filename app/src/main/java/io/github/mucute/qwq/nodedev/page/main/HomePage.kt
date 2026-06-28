@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -16,29 +14,25 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Inventory2
 import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material.icons.rounded.PushPin
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.component.ActionCardItem
 import io.github.mucute.qwq.nodedev.shared.ui.component.CardGroup
 import io.github.mucute.qwq.nodedev.shared.ui.component.CardItem
-import io.github.mucute.qwq.nodedev.shared.ui.icons.Package2
-import top.yukonga.miuix.kmp.basic.Card
+import io.github.mucute.qwq.nodedev.shared.ui.icons.Package2Outline
 import top.yukonga.miuix.kmp.basic.CardDefaults
 import top.yukonga.miuix.kmp.basic.DropdownEntry
 import top.yukonga.miuix.kmp.basic.DropdownItem
 import top.yukonga.miuix.kmp.basic.Icon
-import top.yukonga.miuix.kmp.basic.SmallTitle
-import top.yukonga.miuix.kmp.basic.Text
-import top.yukonga.miuix.kmp.menu.WindowIconDropdownMenu
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 import top.yukonga.miuix.kmp.utils.PressFeedbackType
 
@@ -70,11 +64,26 @@ fun HomePage() {
         }
 
         CardGroup(
+            title = stringResource(R.string.pinned_project_list)
+        ) {
+            LazyColumn(
+                Modifier
+                    .fillMaxWidth(),
+            ) {
+                items(1) {
+                    ProjectCard {
+
+                    }
+                }
+            }
+        }
+
+        CardGroup(
             stringResource(R.string.project_list)
         ) {
             LazyColumn(
                 Modifier
-                    .fillMaxSize(),
+                    .fillMaxWidth(),
             ) {
                 items(20) {
                     ProjectCard {
@@ -96,6 +105,9 @@ private fun ProjectCard(
     val dropdownEntry = remember(resources) {
         DropdownEntry(
             listOf(
+                DropdownItem(resources.getString(R.string.pin), icon = {
+                    Icon(Icons.Rounded.PushPin, null, modifier = it.size(20.dp))
+                }),
                 DropdownItem(resources.getString(R.string.rename), icon = {
                     Icon(Icons.Rounded.Edit, null, modifier = it.size(20.dp))
                 }),
@@ -107,7 +119,7 @@ private fun ProjectCard(
     }
     ActionCardItem(
         entry = dropdownEntry,
-        leadingIcon = Icons.Rounded.Package2,
+        leadingIcon = Icons.Rounded.Package2Outline,
         trailingIcon = Icons.Rounded.MoreVert,
         title = "NodeDev",
         summary = "com.example.app"
