@@ -1,12 +1,15 @@
 package io.github.mucute.qwq.nodedev.activity
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.retain.retain
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.mucute.qwq.nodedev.navigation.Navigation
@@ -27,6 +30,7 @@ class MainActivity : ComponentActivity() {
             val nodeAppState by nodeAppViewModel.state.collectAsStateWithLifecycle()
             val appThemeMode = nodeAppState.appThemeMode
             val appThemeMonetColor = nodeAppState.appThemeMonetColor
+            val appLanguage = nodeAppState.appLanguage
             val themeController = retain(appThemeMode, appThemeMonetColor) {
                 ThemeController(
                     colorSchemeMode = if (appThemeMonetColor) when (appThemeMode) {
@@ -41,10 +45,18 @@ class MainActivity : ComponentActivity() {
                     colorSpec = ThemeColorSpec.Spec2025
                 )
             }
+            val wrappedContext = remember(appLanguage) {
+                createConfigurationContext(Configuration(resources.configuration).apply {
+                    setLocale(appLanguage.locale)
+                })
+            }
+
             NodeAppTheme(
-                themeController
+                controller = themeController
             ) {
-                Navigation()
+                CompositionLocalProvider(LocalContext provides wrappedContext) {
+                    Navigation()
+                }
             }
         }
     }

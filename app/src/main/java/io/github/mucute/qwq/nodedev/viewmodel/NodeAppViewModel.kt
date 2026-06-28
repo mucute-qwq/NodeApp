@@ -1,6 +1,7 @@
 package io.github.mucute.qwq.nodedev.viewmodel
 
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.core.os.LocaleListCompat
 import io.github.mucute.qwq.nodedev.depository.NodeAppDepository
 import io.github.mucute.qwq.nodedev.mvi.MVIViewModel
 import io.github.mucute.qwq.nodedev.mvi.UIIntent
@@ -8,14 +9,32 @@ import io.github.mucute.qwq.nodedev.mvi.UIState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 enum class AppThemeMode {
     System, Light, Dark
 }
 
+enum class AppLanguage(val locale: Locale) {
+    English(Locale.ENGLISH),
+    Chinese(Locale.CHINESE);
+
+    companion object {
+
+        val default: AppLanguage
+            get() {
+                val locale = Locale.getDefault()
+                return entries.find { it.locale.language == locale.language } ?: English
+            }
+
+    }
+
+}
+
 data class NodeAppState(
     val appThemeMode: AppThemeMode = AppThemeMode.System,
-    val appThemeMonetColor: Boolean = false
+    val appThemeMonetColor: Boolean = false,
+    val appLanguage: AppLanguage = AppLanguage.English
 ) : UIState
 
 sealed interface NodeAppIntent : UIIntent {
@@ -23,6 +42,10 @@ sealed interface NodeAppIntent : UIIntent {
     data class ChangeAppThemeMode(
         val appThemeMode: AppThemeMode,
         val appThemeMonetColor: Boolean
+    ) : NodeAppIntent
+
+    data class ChangeAppLanguage(
+        val appLanguage: AppLanguage
     ) : NodeAppIntent
 
 }
@@ -45,9 +68,9 @@ class NodeAppViewModel : MVIViewModel<NodeAppState, NodeAppIntent, NodeAppDeposi
 
     override suspend fun onIntent(intent: NodeAppIntent) {
         when (intent) {
-            is NodeAppIntent.ChangeAppThemeMode -> {
-                _depository.changeAppTheme(intent.appThemeMode, intent.appThemeMonetColor)
-            }
+            is NodeAppIntent.ChangeAppThemeMode -> _depository.changeAppTheme(intent.appThemeMode, intent.appThemeMonetColor)
+
+            is NodeAppIntent.ChangeAppLanguage -> _depository.changeAppLanguage(intent.appLanguage)
         }
     }
 

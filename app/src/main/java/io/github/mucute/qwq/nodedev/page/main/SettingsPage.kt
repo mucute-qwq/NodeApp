@@ -22,6 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.component.PreferenceGroup
+import io.github.mucute.qwq.nodedev.viewmodel.AppLanguage
 import io.github.mucute.qwq.nodedev.viewmodel.AppThemeMode
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
@@ -76,6 +77,7 @@ private fun ThemePreferenceGroup() {
 
     val nodeAppViewModel: NodeAppViewModel = viewModel()
     val nodeAppState by nodeAppViewModel.state.collectAsStateWithLifecycle()
+    val nodeAppIntent = nodeAppViewModel.intent
 
     PreferenceGroup(
         text = stringResource(R.string.theme)
@@ -87,7 +89,7 @@ private fun ThemePreferenceGroup() {
             selectedIndex = nodeAppState.appThemeMode.ordinal,
             onSelectedIndexChange = {
                 coroutineScope.launch {
-                    nodeAppViewModel.intent.send(
+                    nodeAppIntent.send(
                         NodeAppIntent.ChangeAppThemeMode(
                             AppThemeMode.entries[it],
                             nodeAppState.appThemeMonetColor
@@ -123,6 +125,7 @@ private fun ThemePreferenceGroup() {
 
 @Composable
 private fun GeneralPreferenceGroup() {
+    val coroutineScope = rememberCoroutineScope()
     val resources = LocalResources.current
     val codeEditorFontDropdownItems = remember {
         listOf(
@@ -136,6 +139,10 @@ private fun GeneralPreferenceGroup() {
         )
     }
 
+    val nodeAppViewModel: NodeAppViewModel = viewModel()
+    val nodeAppState by nodeAppViewModel.state.collectAsStateWithLifecycle()
+    val nodeAppIntent = nodeAppViewModel.intent
+
     PreferenceGroup(
         text = stringResource(R.string.general)
     ) {
@@ -143,8 +150,12 @@ private fun GeneralPreferenceGroup() {
             title = stringResource(R.string.language),
             summary = stringResource(R.string.language_summary),
             items = languageDropdownItems,
-            selectedIndex = 0,
-            onSelectedIndexChange = {},
+            selectedIndex = nodeAppState.appLanguage.ordinal,
+            onSelectedIndexChange = {
+                coroutineScope.launch {
+                    nodeAppIntent.send(NodeAppIntent.ChangeAppLanguage(AppLanguage.entries[it]))
+                }
+            },
         )
         WindowSpinnerPreference(
             title = stringResource(R.string.code_editor_font),

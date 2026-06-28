@@ -57,7 +57,7 @@ fun MainScreen() {
     val scrollBehavior = MiuixScrollBehavior()
     val snackBarHostState = retain { SnackbarHostState() }
     val pagerState =
-        rememberPagerState(initialPage = Page.Extensions.ordinal) { Page.entries.size }
+        rememberPagerState(initialPage = Page.Home.ordinal) { Page.entries.size }
 
     CompositionLocalProvider(LocalSnackBarState provides snackBarHostState) {
         Scaffold(

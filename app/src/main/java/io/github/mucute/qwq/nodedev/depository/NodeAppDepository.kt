@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import io.github.mucute.qwq.nodedev.application.AppContext
 import io.github.mucute.qwq.nodedev.mvi.Depository
+import io.github.mucute.qwq.nodedev.viewmodel.AppLanguage
 import io.github.mucute.qwq.nodedev.viewmodel.AppThemeMode
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppState
@@ -26,38 +27,61 @@ class NodeAppDepository(
 
         const val APP_THEME_MONET_COLOR = "app_theme_monet_color"
 
+        const val APP_LANGUAGE = "app_language"
+
+    }
+
+    private val sharedPreferences by lazy {
+        AppContext.instance.getSharedPreferences(
+            PREFERENCE_NAME,
+            Context.MODE_PRIVATE
+        )
     }
 
     suspend fun fetchAndUpdate() = withContext(Dispatchers.IO) {
-        state.update {
-            val sharedPreferences =
-                AppContext.instance.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-            val appThemeMode = AppThemeMode.valueOf(
-                sharedPreferences.getString(
-                    APP_THEME_MODE,
-                    AppThemeMode.System.name
-                )!!
-            )
-            val appThemeMonetColor = sharedPreferences.getBoolean(APP_THEME_MONET_COLOR, false)
+        val appThemeMode = AppThemeMode.valueOf(
+            sharedPreferences.getString(
+                APP_THEME_MODE,
+                AppThemeMode.System.name
+            )!!
+        )
+        val appThemeMonetColor = sharedPreferences.getBoolean(APP_THEME_MONET_COLOR, false)
+        val appLanguage = AppLanguage.valueOf(
+            sharedPreferences.getString(
+                APP_LANGUAGE,
+                AppLanguage.default.name
+            )!!
+        )
 
-            it.copy(appThemeMode = appThemeMode, appThemeMonetColor = appThemeMonetColor)
+        state.update {
+            it.copy(
+                appThemeMode = appThemeMode,
+                appThemeMonetColor = appThemeMonetColor,
+                appLanguage = appLanguage
+            )
         }
     }
 
     suspend fun changeAppTheme(appThemeMode: AppThemeMode, appThemeMonetColor: Boolean) =
-        withContext(
-            Dispatchers.IO
-        ) {
+        withContext(Dispatchers.IO) {
             state.update {
                 it.copy(appThemeMode = appThemeMode, appThemeMonetColor = appThemeMonetColor)
             }
 
-            val sharedPreferences =
-                AppContext.instance.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
             sharedPreferences.edit {
                 putString(APP_THEME_MODE, appThemeMode.name)
                 putBoolean(APP_THEME_MONET_COLOR, appThemeMonetColor)
             }
         }
+
+    suspend fun changeAppLanguage(appLanguage: AppLanguage) = withContext(Dispatchers.IO) {
+        state.update {
+            it.copy(appLanguage = appLanguage)
+        }
+
+        sharedPreferences.edit {
+            putString(APP_LANGUAGE, appLanguage.name)
+        }
+    }
 
 }
