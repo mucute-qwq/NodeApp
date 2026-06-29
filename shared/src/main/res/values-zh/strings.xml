@@ -36,7 +36,7 @@
     <string name="color_preview_summary">显示颜色值预览，例如 #FFF、#000000 为白色和黑色</string>
     <string name="line_highlight">行高亮</string>
     <string name="line_highlight_summary">高亮当前光标所在行</string>
-    <string name="code_editor_font">代买编辑器字体</string>
+    <string name="code_editor_font">代码编辑器字体</string>
     <string name="code_editor_font_summary">设置编辑器的全局外观字体</string>
     <string name="word_wrap">自动换行</string>
     <string name="word_wrap_summary">对于超出屏幕的横向文本进行自动截断并换行</string>

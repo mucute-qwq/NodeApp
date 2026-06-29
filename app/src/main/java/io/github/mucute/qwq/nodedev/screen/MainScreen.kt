@@ -38,7 +38,7 @@ import top.yukonga.miuix.kmp.basic.SnackbarHostState
 import top.yukonga.miuix.kmp.basic.TopAppBar
 
 @Immutable
-private enum class Page(
+private enum class MainPage(
     val icon: ImageVector,
     @field:StringRes val labelResId: Int,
     val content: @Composable () -> Unit
@@ -57,14 +57,14 @@ fun MainScreen() {
     val scrollBehavior = MiuixScrollBehavior()
     val snackBarHostState = retain { SnackbarHostState() }
     val pagerState =
-        rememberPagerState(initialPage = Page.Home.ordinal) { Page.entries.size }
+        rememberPagerState(initialPage = MainPage.Home.ordinal) { MainPage.entries.size }
 
     CompositionLocalProvider(LocalSnackBarState provides snackBarHostState) {
         Scaffold(
             topBar = {
                 TopAppBar(
                     title = stringResource(R.string.app_name),
-                    subtitle = stringResource(Page.entries[pagerState.targetPage].labelResId),
+                    subtitle = stringResource(MainPage.entries[pagerState.targetPage].labelResId),
                     scrollBehavior = scrollBehavior
                 )
             },
@@ -72,7 +72,7 @@ fun MainScreen() {
                 NavigationBar(
                     mode = NavigationBarDisplayMode.IconWithSelectedLabel
                 ) {
-                    Page.entries.forEach { page ->
+                    MainPage.entries.forEach { page ->
                         NavigationBarItem(
                             selected = page.ordinal == pagerState.targetPage,
                             onClick = {
@@ -98,7 +98,7 @@ fun MainScreen() {
                     .padding(it)
                     .fillMaxSize()
             ) { currentPage ->
-                Page.entries[currentPage].content()
+                MainPage.entries[currentPage].content()
             }
         }
     }

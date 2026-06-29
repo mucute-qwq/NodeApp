@@ -1,7 +1,5 @@
 package io.github.mucute.qwq.nodedev.viewmodel
 
-import android.util.Log
-import androidx.core.os.LocaleListCompat
 import io.github.mucute.qwq.nodedev.depository.NodeAppDepository
 import io.github.mucute.qwq.nodedev.mvi.MVIViewModel
 import io.github.mucute.qwq.nodedev.mvi.UIIntent
@@ -34,7 +32,8 @@ enum class AppLanguage(val locale: Locale) {
 data class NodeAppState(
     val appThemeMode: AppThemeMode = AppThemeMode.System,
     val appThemeMonetColor: Boolean = false,
-    val appLanguage: AppLanguage = AppLanguage.English
+    val appLanguage: AppLanguage = AppLanguage.English,
+    val skipGuide: Boolean = false
 ) : UIState
 
 sealed interface NodeAppIntent : UIIntent {
@@ -46,6 +45,10 @@ sealed interface NodeAppIntent : UIIntent {
 
     data class ChangeAppLanguage(
         val appLanguage: AppLanguage
+    ) : NodeAppIntent
+
+    data class SkipGuide(
+        val isEnabled: Boolean
     ) : NodeAppIntent
 
 }
@@ -71,6 +74,8 @@ class NodeAppViewModel : MVIViewModel<NodeAppState, NodeAppIntent, NodeAppDeposi
             is NodeAppIntent.ChangeAppThemeMode -> _depository.changeAppTheme(intent.appThemeMode, intent.appThemeMonetColor)
 
             is NodeAppIntent.ChangeAppLanguage -> _depository.changeAppLanguage(intent.appLanguage)
+
+            is NodeAppIntent.SkipGuide -> _depository.skipGuide(intent.isEnabled)
         }
     }
 

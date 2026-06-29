@@ -29,6 +29,8 @@ class NodeAppDepository(
 
         const val APP_LANGUAGE = "app_language"
 
+        const val SKIP_GUIDE = "skip_guide"
+
     }
 
     private val sharedPreferences by lazy {
@@ -52,12 +54,14 @@ class NodeAppDepository(
                 AppLanguage.default.name
             )!!
         )
+        val skipGuide = sharedPreferences.getBoolean(SKIP_GUIDE, false)
 
         state.update {
             it.copy(
                 appThemeMode = appThemeMode,
                 appThemeMonetColor = appThemeMonetColor,
-                appLanguage = appLanguage
+                appLanguage = appLanguage,
+                skipGuide = skipGuide
             )
         }
     }
@@ -81,6 +85,16 @@ class NodeAppDepository(
 
         sharedPreferences.edit {
             putString(APP_LANGUAGE, appLanguage.name)
+        }
+    }
+
+    suspend fun skipGuide(isEnabled: Boolean) = withContext(Dispatchers.IO) {
+        state.update {
+            it.copy(skipGuide = isEnabled)
+        }
+
+        sharedPreferences.edit {
+            putBoolean(SKIP_GUIDE, isEnabled)
         }
     }
 
