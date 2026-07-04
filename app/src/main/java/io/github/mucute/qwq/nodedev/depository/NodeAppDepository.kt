@@ -2,8 +2,8 @@ package io.github.mucute.qwq.nodedev.depository
 
 import android.content.Context
 import androidx.core.content.edit
-import io.github.mucute.qwq.nodedev.application.AppContext
-import io.github.mucute.qwq.nodedev.mvi.Depository
+import io.github.mucute.qwq.nodedev.shared.application.AppContext
+import io.github.mucute.qwq.nodedev.shared.mvi.Depository
 import io.github.mucute.qwq.nodedev.viewmodel.AppLanguage
 import io.github.mucute.qwq.nodedev.viewmodel.AppThemeMode
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent

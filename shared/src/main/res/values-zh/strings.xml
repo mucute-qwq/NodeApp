@@ -60,4 +60,11 @@
     <string name="getting_started">入门</string>
     <string name="learn_nodejs">了解 Node.js</string>
     <string name="learn_nodejs_summary">了解 Node.js 的使用场景，以及使用 NodeApp 便捷地完成软件开发</string>
+    <string name="app_description">一款 Android Node.js IDE，旨在让您方便地创建出色的软件作品</string>
+    <string name="permission_request">权限请求</string>
+    <string name="storage_permission">存储权限</string>
+    <string name="storage_permission_summary">允许软件读取或修改 SD 卡中的内容</string>
+    <string name="network_permission">网络权限</string>
+    <string name="network_permission_summary">允许软件使用网络</string>
+    <string name="grant_permissions">授予权限</string>
 </resources>

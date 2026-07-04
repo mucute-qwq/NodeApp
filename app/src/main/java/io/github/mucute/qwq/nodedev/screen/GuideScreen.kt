@@ -22,27 +22,31 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Done
+import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import io.github.mucute.qwq.nodedev.composition.local.LocalBackStack
-import io.github.mucute.qwq.nodedev.navigation.Screen
+import io.github.mucute.qwq.nodedev.shared.composition.local.LocalBackStack
 import io.github.mucute.qwq.nodedev.page.guide.FeaturesPage
 import io.github.mucute.qwq.nodedev.page.guide.PermissionRequestPage
 import io.github.mucute.qwq.nodedev.page.guide.StartupPage
+import io.github.mucute.qwq.nodedev.shared.R
+import io.github.mucute.qwq.nodedev.shared.navigation.NavScreen
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
 import kotlinx.coroutines.launch
+import top.yukonga.miuix.kmp.basic.FloatingActionButton
 import top.yukonga.miuix.kmp.basic.Icon
 import top.yukonga.miuix.kmp.basic.IconButton
 import top.yukonga.miuix.kmp.basic.LinearProgressIndicator
 import top.yukonga.miuix.kmp.basic.Scaffold
+import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 
 @Immutable
@@ -115,7 +119,7 @@ fun GuideScreen() {
                         .weight(1f),
                     progress = stepProgress
                 )
-                IconButton(
+                FloatingActionButton(
                     onClick = {
                         coroutineScope.launch {
                             if (nextPage < GuidePage.entries.size) {
@@ -125,22 +129,44 @@ fun GuideScreen() {
 
                             nodeAppIntent.send(NodeAppIntent.SkipGuide(isEnabled = true))
 
-                            backStack += Screen.Main
-                            backStack -= Screen.Guide
+                            backStack += NavScreen.Main
+                            backStack -= NavScreen.Guide
                         }
                     },
-                    backgroundColor = MiuixTheme.colorScheme.primary,
                     minWidth = 54.dp,
                     minHeight = 54.dp
                 ) {
                     AnimatedContent(
-                        targetState = nextPage == GuidePage.entries.size
+                        targetState = nextPage
                     ) {
-                        Icon(
-                            if (it) Icons.Rounded.Done else Icons.AutoMirrored.Rounded.ArrowForward,
-                            null,
-                            tint = MiuixTheme.colorScheme.onPrimary
-                        )
+                        if (it == 2) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp),
+                            ) {
+                                Icon(
+                                    Icons.Rounded.Lock,
+                                    null,
+                                    tint = MiuixTheme.colorScheme.onPrimary
+                                )
+                                Text(
+                                    stringResource(R.string.grant_permissions),
+                                    color = MiuixTheme.colorScheme.onPrimary
+                                )
+                            }
+                        } else {
+                            AnimatedContent(
+                                targetState = it == GuidePage.entries.size
+                            ) { reachedEnd ->
+                                Icon(
+                                    if (reachedEnd) Icons.Rounded.Done else Icons.AutoMirrored.Rounded.ArrowForward,
+                                    null,
+                                    tint = MiuixTheme.colorScheme.onPrimary
+                                )
+                            }
+                        }
                     }
                 }
             }

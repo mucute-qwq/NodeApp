@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import io.github.mucute.qwq.nodedev.composition.local.LocalSnackBarState
+import io.github.mucute.qwq.nodedev.shared.composition.local.LocalSnackBarState
 import io.github.mucute.qwq.nodedev.page.main.ExtensionsPage
 import io.github.mucute.qwq.nodedev.page.main.HomePage
 import io.github.mucute.qwq.nodedev.page.main.LearningPage

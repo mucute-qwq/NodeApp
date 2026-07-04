@@ -1,9 +1,9 @@
 package io.github.mucute.qwq.nodedev.viewmodel
 
 import io.github.mucute.qwq.nodedev.depository.NodeAppDepository
-import io.github.mucute.qwq.nodedev.mvi.MVIViewModel
-import io.github.mucute.qwq.nodedev.mvi.UIIntent
-import io.github.mucute.qwq.nodedev.mvi.UIState
+import io.github.mucute.qwq.nodedev.shared.mvi.MVIViewModel
+import io.github.mucute.qwq.nodedev.shared.mvi.UIIntent
+import io.github.mucute.qwq.nodedev.shared.mvi.UIState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

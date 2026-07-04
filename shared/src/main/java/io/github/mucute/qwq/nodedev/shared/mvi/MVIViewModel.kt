@@ -1,7 +1,7 @@
-package io.github.mucute.qwq.nodedev.mvi
+package io.github.mucute.qwq.nodedev.shared.mvi
 
 import androidx.lifecycle.ViewModel
-import io.github.mucute.qwq.nodedev.application.AppContext
+import io.github.mucute.qwq.nodedev.shared.application.AppContext
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.MainScope

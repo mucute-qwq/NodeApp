@@ -1,4 +1,4 @@
-package io.github.mucute.qwq.nodedev.application
+package io.github.mucute.qwq.nodedev.shared.application
 
 import android.app.Application
 import kotlinx.coroutines.CoroutineExceptionHandler

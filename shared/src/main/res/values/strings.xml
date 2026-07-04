@@ -63,4 +63,11 @@
     <string name="getting_started">Getting Started</string>
     <string name="learn_nodejs">Learn Node.js</string>
     <string name="learn_nodejs_summary">Understand the use cases of Node.js and how to easily complete software development using NodeApp</string>
+    <string name="app_description">An Android Node.js IDE, aiming to create your awesome pieces of software conveniently</string>
+    <string name="permission_request">Permission Request</string>
+    <string name="storage_permission">Storage Permission</string>
+    <string name="storage_permission_summary">Allows software to read or modify the contents of the SD card</string>
+    <string name="network_permission">Network Permission</string>
+    <string name="network_permission_summary">Allow software to use the network</string>
+    <string name="grant_permissions">Grant Permissions</string>
 </resources>

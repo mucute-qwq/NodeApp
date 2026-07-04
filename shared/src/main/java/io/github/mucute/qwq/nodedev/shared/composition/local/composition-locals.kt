@@ -1,4 +1,4 @@
-package io.github.mucute.qwq.nodedev.composition.local
+package io.github.mucute.qwq.nodedev.shared.composition.local
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.staticCompositionLocalOf
