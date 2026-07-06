@@ -65,6 +65,11 @@
     <string name="storage_permission">存储权限</string>
     <string name="storage_permission_summary">允许软件读取或修改 SD 卡中的内容</string>
     <string name="network_permission">网络权限</string>
-    <string name="network_permission_summary">允许软件使用网络</string>
+    <string name="network_permission_summary">允许软件访问网络</string>
     <string name="grant_permissions">授予权限</string>
+    <string name="permission_request_summary">请授予软件以下必需权限</string>
+    <string name="common_features_title">通用功能</string>
+    <string name="common_features_summary">一些被软件支持的常用功能</string>
+    <string name="nodejs_title">Node.js 支持</string>
+    <string name="nodejs_summary">使用 Node.js 创建你自己的使人惊叹的 APP</string>
 </resources>

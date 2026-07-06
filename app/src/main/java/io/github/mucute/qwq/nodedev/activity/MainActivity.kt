@@ -3,6 +3,7 @@ package io.github.mucute.qwq.nodedev.activity
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
@@ -50,12 +51,15 @@ class MainActivity : ComponentActivity() {
                     setLocale(appLanguage.locale)
                 })
             }
+            val activityResultRegistryOwner = LocalActivityResultRegistryOwner.current!!
 
             NodeAppTheme(
                 controller = themeController
             ) {
                 CompositionLocalProvider(LocalContext provides wrappedContext) {
-                    Navigation()
+                    CompositionLocalProvider(LocalActivityResultRegistryOwner provides activityResultRegistryOwner) {
+                        Navigation()
+                    }
                 }
             }
         }

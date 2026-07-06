@@ -68,6 +68,11 @@
     <string name="storage_permission">Storage Permission</string>
     <string name="storage_permission_summary">Allows software to read or modify the contents of the SD card</string>
     <string name="network_permission">Network Permission</string>
-    <string name="network_permission_summary">Allow software to use the network</string>
+    <string name="network_permission_summary">Allow software to access the network</string>
     <string name="grant_permissions">Grant Permissions</string>
+    <string name="permission_request_summary">Please grant the software the following necessary permissions</string>
+    <string name="common_features_title">Common Features</string>
+    <string name="common_features_summary">Some useful features supported by the software</string>
+    <string name="nodejs_title">Node.js Support</string>
+    <string name="nodejs_summary">Use Node.js to create your own awesome APP</string>
 </resources>

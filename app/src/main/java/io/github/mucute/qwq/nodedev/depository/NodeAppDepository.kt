@@ -14,10 +14,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 
-class NodeAppDepository(
-    val state: MutableStateFlow<NodeAppState>,
-    val intent: Channel<NodeAppIntent>
-) : Depository {
+class NodeAppDepository(state: MutableStateFlow<NodeAppState>, intent: Channel<NodeAppIntent>) :
+    Depository<NodeAppState, NodeAppIntent>(state, intent) {
 
     companion object {
 

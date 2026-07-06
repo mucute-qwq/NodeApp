@@ -180,6 +180,7 @@ inline fun CardItem(
     leadingIcon: ImageVector? = null,
     trailingIcon: ImageVector? = null,
     cornerRadius: Dp = 0.dp,
+    iconSize: Dp = 24.dp,
     pressFeedbackType: PressFeedbackType = PressFeedbackType.None,
     showIndication: Boolean = true,
     colors: CardColors = CardDefaults.defaultColors(),
@@ -190,12 +191,12 @@ inline fun CardItem(
     BasicCardItem(
         leadingIcon = {
             leadingIcon?.let {
-                Icon(it, null)
+                Icon(it, null, modifier = Modifier.size(iconSize))
             }
         },
         trailingIcon = {
             trailingIcon?.let {
-                Icon(it, null)
+                Icon(it, null, modifier = Modifier.size(iconSize))
             }
         },
         cornerRadius = cornerRadius,

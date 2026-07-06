@@ -1,5 +1,8 @@
 package io.github.mucute.qwq.nodedev.screen
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
@@ -26,17 +29,20 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import io.github.mucute.qwq.nodedev.shared.composition.local.LocalBackStack
 import io.github.mucute.qwq.nodedev.page.guide.FeaturesPage
 import io.github.mucute.qwq.nodedev.page.guide.PermissionRequestPage
 import io.github.mucute.qwq.nodedev.page.guide.StartupPage
 import io.github.mucute.qwq.nodedev.shared.R
+import io.github.mucute.qwq.nodedev.shared.composition.local.LocalBackStack
 import io.github.mucute.qwq.nodedev.shared.navigation.NavScreen
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
@@ -58,20 +64,38 @@ private enum class GuidePage(
     Features(::FeaturesPage)
 }
 
+private val permissions = arrayOf(
+    Manifest.permission.READ_EXTERNAL_STORAGE,
+    Manifest.permission.WRITE_EXTERNAL_STORAGE
+)
+
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
 fun GuideScreen() {
     val coroutineScope = rememberCoroutineScope()
     val backStack = LocalBackStack.current
-    val pagerState =
-        rememberPagerState(initialPage = GuidePage.Startup.ordinal) { GuidePage.entries.size }
-    val nextPage = pagerState.currentPage + 1
-    val previousPage = pagerState.currentPage - 1
-    val stepProgress by animateFloatAsState(
-        targetValue = nextPage.toFloat() / GuidePage.entries.size
-    )
     val nodeAppViewModel: NodeAppViewModel = viewModel()
     val nodeAppIntent = nodeAppViewModel.intent
+    val pagerState =
+        rememberPagerState(initialPage = GuidePage.Startup.ordinal) { GuidePage.entries.size }
+    val currentPage = pagerState.currentPage
+    val isBeginning = currentPage == 0
+    val isEnd = currentPage + 1 == GuidePage.entries.size
+    val stepProgress by animateFloatAsState(
+        targetValue = (currentPage.toFloat() + 1f) / GuidePage.entries.size
+    )
+    var isPermissionGranted by remember { mutableStateOf(false) }
+    val activityResultLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            if (false in it.values) {
+                isPermissionGranted = false
+                return@rememberLauncherForActivityResult
+            }
+            isPermissionGranted = true
+            coroutineScope.launch {
+                pagerState.animateScrollToPage(currentPage + 1)
+            }
+        }
 
     Scaffold(
         bottomBar = {
@@ -84,10 +108,9 @@ fun GuideScreen() {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-
                 Column(Modifier.size(54.dp)) {
                     AnimatedVisibility(
-                        visible = pagerState.currentPage > 0,
+                        visible = !isBeginning,
                         enter = scaleIn() + fadeIn(),
                         exit = scaleOut(targetScale = 0.7f) + fadeOut(),
                         modifier = Modifier
@@ -96,12 +119,7 @@ fun GuideScreen() {
                         IconButton(
                             onClick = {
                                 coroutineScope.launch {
-                                    if (previousPage >= 0) {
-                                        pagerState.animateScrollToPage(previousPage)
-                                        return@launch
-                                    }
-
-
+                                    pagerState.animateScrollToPage(currentPage - 1)
                                 }
                             },
                             modifier = Modifier.fillMaxSize()
@@ -122,8 +140,15 @@ fun GuideScreen() {
                 FloatingActionButton(
                     onClick = {
                         coroutineScope.launch {
-                            if (nextPage < GuidePage.entries.size) {
-                                pagerState.animateScrollToPage(nextPage)
+                            if (currentPage == GuidePage.PermissionRequest.ordinal) {
+                                activityResultLauncher.launch(permissions)
+                                if (!isPermissionGranted) {
+                                    return@launch
+                                }
+                            }
+
+                            if (!isEnd) {
+                                pagerState.animateScrollToPage(currentPage + 1)
                                 return@launch
                             }
 
@@ -137,9 +162,9 @@ fun GuideScreen() {
                     minHeight = 54.dp
                 ) {
                     AnimatedContent(
-                        targetState = nextPage
+                        targetState = currentPage
                     ) {
-                        if (it == 2) {
+                        if (it == GuidePage.PermissionRequest.ordinal) {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -157,11 +182,12 @@ fun GuideScreen() {
                                 )
                             }
                         } else {
+                            val isEnd = it + 1 == GuidePage.entries.size
                             AnimatedContent(
-                                targetState = it == GuidePage.entries.size
-                            ) { reachedEnd ->
+                                targetState = isEnd
+                            ) { isEnd ->
                                 Icon(
-                                    if (reachedEnd) Icons.Rounded.Done else Icons.AutoMirrored.Rounded.ArrowForward,
+                                    if (isEnd) Icons.Rounded.Done else Icons.AutoMirrored.Rounded.ArrowForward,
                                     null,
                                     tint = MiuixTheme.colorScheme.onPrimary
                                 )
@@ -174,6 +200,7 @@ fun GuideScreen() {
     ) {
         HorizontalPager(
             state = pagerState,
+            userScrollEnabled = currentPage != GuidePage.PermissionRequest.ordinal,
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize()

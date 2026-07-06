@@ -14,7 +14,7 @@ import kotlinx.coroutines.plus
 import kotlinx.coroutines.supervisorScope
 
 @Suppress("PropertyName")
-abstract class MVIViewModel<S : UIState, I : UIIntent, D : Depository> : ViewModel() {
+abstract class MVIViewModel<S : UIState, I : UIIntent, D : Depository<S, I>> : ViewModel() {
 
     val viewModelScope =
         MainScope() + CoroutineName("${javaClass.name}CoroutineScope") + CoroutineExceptionHandler { _, throwable ->
