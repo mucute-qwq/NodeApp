@@ -55,7 +55,7 @@
     <string name="android_platform_ui">Android Platform UI</string>
     <string name="android_platform_ui_summary">Develop using Android platform UI (Views + JavaScript)</string>
     <string name="import_extension">Import Extension</string>
-    <string name="import_extension_summary">Import your plugin from local storage</string>
+    <string name="import_extension_summary">Import your extension from local storage</string>
     <string name="plugin_list">Plugin List</string>
     <string name="installed_plugin_list">Installed Plugin List</string>
     <string name="pinned_project_list">Pinned Project List</string>

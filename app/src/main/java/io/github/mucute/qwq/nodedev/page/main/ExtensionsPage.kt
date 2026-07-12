@@ -2,14 +2,12 @@ package io.github.mucute.qwq.nodedev.page.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.style.ExperimentalFoundationStyleApi
 import androidx.compose.foundation.style.fillSize
 import androidx.compose.foundation.style.styleable
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.ImportExport
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,10 +16,6 @@ import androidx.compose.ui.unit.dp
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.component.CardGroup
 import io.github.mucute.qwq.nodedev.shared.ui.component.CardItem
-import io.github.mucute.qwq.nodedev.shared.ui.component.IconButtonCardItem
-import io.github.mucute.qwq.nodedev.shared.ui.icons.Download1
-import io.github.mucute.qwq.nodedev.shared.ui.icons.DownloadOutline
-import io.github.mucute.qwq.nodedev.shared.ui.icons.Package2
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Package2Outline
 import io.github.mucute.qwq.nodedev.shared.ui.icons.Syringe
 import top.yukonga.miuix.kmp.basic.CardDefaults
@@ -63,7 +57,7 @@ fun ExtensionsPage() {
                     .fillMaxWidth(),
             ) {
                 items(1) {
-                    PluginCard()
+                    ExtensionCard()
                 }
             }
         }
@@ -76,7 +70,7 @@ fun ExtensionsPage() {
                     .fillMaxWidth(),
             ) {
                 items(20) {
-                    PluginCard()
+                    ExtensionCard()
                 }
             }
         }
@@ -84,7 +78,7 @@ fun ExtensionsPage() {
 }
 
 @Composable
-private fun PluginCard(
+private fun ExtensionCard(
 
 ) {
     CardItem(

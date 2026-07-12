@@ -40,7 +40,7 @@ fun LearningPage() {
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(1) {
+            items(2) {
                 CardGroup(
                     title = stringResource(R.string.getting_started),
                     pressFeedbackType = PressFeedbackType.Sink
@@ -56,32 +56,8 @@ fun LearningPage() {
                             leadingIcon = Icons.Rounded.Android,
                             trailingIcon = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
                             title = stringResource(R.string.android_platform_ui),
-                            summary = stringResource(R.string.android_platform_ui_summary)
-                        ) {
-
-                        }
-                    }
-                    HorizontalDivider(Modifier.padding(horizontal = 16.dp))
-                    ExpandableCard(
-                        leadingIcon = Icons.Rounded.Layers,
-                        title = stringResource(R.string.ui_and_ux),
-                        summary = stringResource(R.string.ui_and_ux_summary),
-                        pressFeedbackType = PressFeedbackType.None,
-                        cornerRadius = 0.dp
-                    ) {
-                        CardItem(
-                            leadingIcon = Icons.Rounded.Android,
-                            trailingIcon = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-                            title = stringResource(R.string.android_platform_ui),
-                            summary = stringResource(R.string.android_platform_ui_summary)
-                        ) {
-
-                        }
-                        CardItem(
-                            leadingIcon = Icons.Rounded.Web,
-                            trailingIcon = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-                            title = stringResource(R.string.web_platform_ui),
-                            summary = stringResource(R.string.web_platform_ui_summary)
+                            summary = stringResource(R.string.android_platform_ui_summary),
+                            paddingStart = true
                         ) {
 
                         }

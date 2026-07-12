@@ -25,6 +25,8 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.mucute.qwq.nodedev.shared.R
+import io.github.mucute.qwq.nodedev.shared.composition.local.LocalBackStack
+import io.github.mucute.qwq.nodedev.shared.navigation.NavScreen
 import io.github.mucute.qwq.nodedev.shared.ui.component.ActionCardItem
 import io.github.mucute.qwq.nodedev.shared.ui.component.CardGroup
 import io.github.mucute.qwq.nodedev.shared.ui.component.CardItem
@@ -39,6 +41,7 @@ import top.yukonga.miuix.kmp.utils.PressFeedbackType
 @OptIn(ExperimentalFlexBoxApi::class, ExperimentalFoundationStyleApi::class)
 @Composable
 fun HomePage() {
+    val backStack = LocalBackStack.current
     Column(
         Modifier
             .fillMaxSize()
@@ -60,7 +63,7 @@ fun HomePage() {
             title = stringResource(R.string.new_project),
             summary = stringResource(R.string.new_project_summary)
         ) {
-
+            backStack += NavScreen.NewProject
         }
 
         CardGroup(

@@ -10,4 +10,6 @@ sealed interface NavScreen : NavKey {
 
     data object Main : NavScreen
 
+    data object NewProject : NavScreen
+
 }

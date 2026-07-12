@@ -52,7 +52,7 @@
     <string name="android_platform_ui">Android 平台 UI</string>
     <string name="android_platform_ui_summary">使用 Android 平台 UI（Views + JavaScript）进行开发</string>
     <string name="import_extension">导入插件</string>
-    <string name="import_extension_summary">从本地存储中导入您的插件</string>
+    <string name="import_extension_summary">从本地存储中导入您的扩展</string>
     <string name="plugin_list">插件列表</string>
     <string name="installed_plugin_list">已安装插件列表</string>
     <string name="pinned_project_list">已顶置的项目列表</string>

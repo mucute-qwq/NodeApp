@@ -103,11 +103,3 @@ fun MainScreen() {
         }
     }
 }
-
-@Preview
-@Composable
-private fun MainScreenPreview() {
-    NodeAppTheme {
-        MainScreen()
-    }
-}

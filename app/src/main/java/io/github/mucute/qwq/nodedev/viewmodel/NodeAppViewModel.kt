@@ -7,6 +7,7 @@ import io.github.mucute.qwq.nodedev.shared.mvi.UIState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.Locale
 
 enum class AppThemeMode {
@@ -64,7 +65,7 @@ class NodeAppViewModel : MVIViewModel<NodeAppState, NodeAppIntent, NodeAppDeposi
     override fun initialState() = NodeAppState()
 
     init {
-        viewModelScope.launch {
+        runBlocking {
             _depository.fetchAndUpdate()
         }
     }

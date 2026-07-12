@@ -140,6 +140,7 @@ inline fun BasicCardItem(
     colors: CardColors = CardDefaults.defaultColors(),
     title: String,
     summary: String? = null,
+    paddingStart: Boolean = false,
     crossinline onClick: () -> Unit
 ) {
     Card(
@@ -154,7 +155,8 @@ inline fun BasicCardItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = if (paddingStart) Modifier.padding(start = 40.dp) else Modifier
         ) {
             leadingIcon()
             Column(Modifier.weight(1f)) {
@@ -186,6 +188,7 @@ inline fun CardItem(
     colors: CardColors = CardDefaults.defaultColors(),
     title: String,
     summary: String? = null,
+    paddingStart: Boolean = false,
     crossinline onClick: () -> Unit
 ) {
     BasicCardItem(
@@ -205,6 +208,7 @@ inline fun CardItem(
         colors = colors,
         title = title,
         summary = summary,
+        paddingStart = paddingStart,
         onClick = onClick
     )
 }
