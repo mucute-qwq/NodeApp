@@ -1,6 +1,7 @@
 package io.github.mucute.qwq.nodedev.shared.application
 
 import android.app.Application
+import io.github.mucute.qwq.nodedev.shared.file.initializeFiles
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.MainScope
@@ -23,6 +24,7 @@ class AppContext : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        initializeFiles()
     }
 
     override fun onTerminate() {

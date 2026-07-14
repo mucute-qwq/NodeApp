@@ -1,11 +1,20 @@
 package io.github.mucute.qwq.nodedev.depository
 
 import android.content.Context
+import androidx.compose.ui.text.toLowerCase
 import androidx.core.content.edit
+import de.jonasbroeckmann.kzip.Zip
+import de.jonasbroeckmann.kzip.extractTo
+import de.jonasbroeckmann.kzip.open
+import io.github.mucute.qwq.nodedev.model.AppLanguage
+import io.github.mucute.qwq.nodedev.model.AppThemeMode
+import io.github.mucute.qwq.nodedev.model.Project
+import io.github.mucute.qwq.nodedev.model.ProjectTemplate
 import io.github.mucute.qwq.nodedev.shared.application.AppContext
+import io.github.mucute.qwq.nodedev.shared.file.ProjectFolder
 import io.github.mucute.qwq.nodedev.shared.mvi.Depository
-import io.github.mucute.qwq.nodedev.viewmodel.AppLanguage
-import io.github.mucute.qwq.nodedev.viewmodel.AppThemeMode
+import io.github.mucute.qwq.nodedev.shared.util.JsonDefault
+import io.github.mucute.qwq.nodedev.shared.util.JsonFormatted
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppState
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +22,15 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
+import kotlinx.io.files.Path
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
+import java.io.File
+import java.util.Locale
+import java.util.Locale.getDefault
 
 class NodeAppDepository(state: MutableStateFlow<NodeAppState>, intent: Channel<NodeAppIntent>) :
     Depository<NodeAppState, NodeAppIntent>(state, intent) {
@@ -95,5 +113,53 @@ class NodeAppDepository(state: MutableStateFlow<NodeAppState>, intent: Channel<N
             putBoolean(SKIP_GUIDE, isEnabled)
         }
     }
+
+    suspend fun newProject(name: String, packageName: String, template: ProjectTemplate) =
+        withContext(Dispatchers.IO) {
+            val projectFolder = File(ProjectFolder, name)
+            if (projectFolder.exists()) return@withContext
+
+            projectFolder.mkdirs()
+
+            val workspaceFolder = File(projectFolder, ".workspace")
+            workspaceFolder.mkdirs()
+
+            val project = Project(
+                name = name,
+                packageName = packageName,
+                openedFiles = emptyList(),
+                pinned = false
+            )
+
+            val projectFile = File(workspaceFolder, "project.json")
+            projectFile.writeText(JsonFormatted.encodeToString(project))
+
+            val templateCacheFile = File(AppContext.instance.cacheDir, "${template.name}.zip")
+            AppContext.instance.assets.open(template.path).use { inputStream ->
+                templateCacheFile.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+
+            Zip.open(Path(templateCacheFile.absolutePath))
+                .extractTo(Path(projectFolder.absolutePath))
+            templateCacheFile.delete()
+
+            val packageJsonFile = File(projectFolder, "package.json")
+            val jsonObject = buildJsonObject {
+                val originalJsonObject =
+                    JsonDefault.parseToJsonElement(packageJsonFile.readText()).jsonObject
+                originalJsonObject.forEach {
+                    put(it.key, it.value)
+                }
+
+                put("name", JsonPrimitive(name.lowercase(getDefault())))
+            }
+            packageJsonFile.writeText(JsonFormatted.encodeToString(jsonObject))
+
+            state.update {
+                it.copy()
+            }
+        }
 
 }

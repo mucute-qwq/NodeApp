@@ -72,4 +72,10 @@
     <string name="common_features_summary">一些被软件支持的常用功能</string>
     <string name="nodejs_title">Node.js 支持</string>
     <string name="nodejs_summary">使用 Node.js 创建你自己的使人惊叹的 APP</string>
+    <string name="project_name">项目名称</string>
+    <string name="package_name">包名</string>
+    <string name="create">创建</string>
+    <string name="project_template">项目模板</string>
+    <string name="default_project_template">默认模板</string>
+    <string name="vite_project_template">Vite 模板</string>
 </resources>

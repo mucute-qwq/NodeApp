@@ -20,10 +20,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import io.github.mucute.qwq.nodedev.model.AppLanguage
+import io.github.mucute.qwq.nodedev.model.AppThemeMode
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.ui.component.PreferenceGroup
-import io.github.mucute.qwq.nodedev.viewmodel.AppLanguage
-import io.github.mucute.qwq.nodedev.viewmodel.AppThemeMode
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
 import kotlinx.coroutines.launch

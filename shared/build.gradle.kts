@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -28,6 +29,9 @@ dependencies {
     api(libs.editor)
     api(libs.editor.lsp)
     api(libs.editor.language.textmate)
+    api(libs.kotlinx.serialization.json)
+    api(libs.kzip)
+    api(libs.kotlinx.io.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

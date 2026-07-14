@@ -75,4 +75,10 @@
     <string name="common_features_summary">Some useful features supported by the software</string>
     <string name="nodejs_title">Node.js Support</string>
     <string name="nodejs_summary">Use Node.js to create your own awesome APP</string>
+    <string name="project_name">Project Name</string>
+    <string name="package_name">Package Name</string>
+    <string name="create">Create</string>
+    <string name="project_template">Project Template</string>
+    <string name="default_project_template">Default Template</string>
+    <string name="vite_project_template">Vite Template</string>
 </resources>

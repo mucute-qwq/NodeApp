@@ -14,11 +14,13 @@ import top.yukonga.miuix.kmp.basic.SmallTitle
 @OptIn(ExperimentalFoundationStyleApi::class)
 @Composable
 fun PreferenceGroup(
-    text: String,
+    text: String? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column {
-        SmallTitle(text)
+        text?.let {
+            SmallTitle(it)
+        }
         Card(
             Modifier
                 .styleable {

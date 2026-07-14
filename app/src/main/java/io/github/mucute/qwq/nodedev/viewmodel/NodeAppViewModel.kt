@@ -1,41 +1,25 @@
 package io.github.mucute.qwq.nodedev.viewmodel
 
 import io.github.mucute.qwq.nodedev.depository.NodeAppDepository
+import io.github.mucute.qwq.nodedev.model.AppLanguage
+import io.github.mucute.qwq.nodedev.model.AppThemeMode
+import io.github.mucute.qwq.nodedev.model.Project
+import io.github.mucute.qwq.nodedev.model.ProjectTemplate
 import io.github.mucute.qwq.nodedev.shared.mvi.MVIViewModel
 import io.github.mucute.qwq.nodedev.shared.mvi.UIIntent
 import io.github.mucute.qwq.nodedev.shared.mvi.UIState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.Locale
 
-enum class AppThemeMode {
-    System, Light, Dark
-}
-
-enum class AppLanguage(val locale: Locale) {
-    English(Locale.ENGLISH),
-    Chinese(Locale.CHINESE);
-
-    companion object {
-
-        val default: AppLanguage
-            get() {
-                val locale = Locale.getDefault()
-                return entries.find { it.locale.language == locale.language } ?: English
-            }
-
-    }
-
-}
 
 data class NodeAppState(
     val appThemeMode: AppThemeMode = AppThemeMode.System,
     val appThemeMonetColor: Boolean = false,
     val appLanguage: AppLanguage = AppLanguage.English,
-    val skipGuide: Boolean = false
-) : UIState
+    val skipGuide: Boolean = false,
+    val projects: List<Project> = emptyList()
+    ) : UIState
 
 sealed interface NodeAppIntent : UIIntent {
 
@@ -50,6 +34,12 @@ sealed interface NodeAppIntent : UIIntent {
 
     data class SkipGuide(
         val isEnabled: Boolean
+    ) : NodeAppIntent
+
+    data class NewProject(
+        val name: String,
+        val packageName: String,
+        val template: ProjectTemplate
     ) : NodeAppIntent
 
 }
@@ -77,6 +67,8 @@ class NodeAppViewModel : MVIViewModel<NodeAppState, NodeAppIntent, NodeAppDeposi
             is NodeAppIntent.ChangeAppLanguage -> _depository.changeAppLanguage(intent.appLanguage)
 
             is NodeAppIntent.SkipGuide -> _depository.skipGuide(intent.isEnabled)
+
+            is NodeAppIntent.NewProject -> _depository.newProject(intent.name, intent.packageName, intent.template)
         }
     }
 
