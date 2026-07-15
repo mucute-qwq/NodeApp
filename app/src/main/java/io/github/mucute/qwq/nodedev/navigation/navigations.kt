@@ -14,8 +14,8 @@ import androidx.navigation3.ui.NavDisplay
 import io.github.mucute.qwq.nodedev.screen.GuideScreen
 import io.github.mucute.qwq.nodedev.screen.MainScreen
 import io.github.mucute.qwq.nodedev.screen.NewProjectScreen
+import io.github.mucute.qwq.nodedev.screen.WorkspaceScreen
 import io.github.mucute.qwq.nodedev.shared.composition.local.LocalBackStack
-import io.github.mucute.qwq.nodedev.shared.navigation.NavScreen
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
 
 @Composable
@@ -40,6 +40,10 @@ fun Navigation() {
 
             entry(NavScreen.NewProject) {
                 NewProjectScreen()
+            }
+
+            entry<NavScreen.Workspace> {
+                WorkspaceScreen(it.project)
             }
 
         }

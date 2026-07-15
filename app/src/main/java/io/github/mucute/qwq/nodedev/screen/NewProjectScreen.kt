@@ -35,7 +35,7 @@ import io.github.mucute.qwq.nodedev.model.ProjectTemplate
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.composition.local.LocalBackStack
 import io.github.mucute.qwq.nodedev.shared.composition.local.LocalSnackBarState
-import io.github.mucute.qwq.nodedev.shared.navigation.NavScreen
+import io.github.mucute.qwq.nodedev.navigation.NavScreen
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
 import kotlinx.coroutines.launch
@@ -98,6 +98,7 @@ fun NewProjectScreen() {
 @Composable
 private fun NewProjectScreenContent() {
     val coroutineScope = rememberCoroutineScope()
+    val backStack = LocalBackStack.current
     val nodeAppViewModel: NodeAppViewModel = viewModel()
     val nodeAppIntent = nodeAppViewModel.intent
     var projectName by retain { mutableStateOf("MyApp") }
@@ -203,6 +204,7 @@ private fun NewProjectScreenContent() {
                             ProjectTemplate.entries[selectedProjectTemplateIndex]
                         )
                     )
+                    backStack -= NavScreen.NewProject
                 }
             }
         )

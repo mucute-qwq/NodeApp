@@ -78,4 +78,8 @@
     <string name="project_template">项目模板</string>
     <string name="default_project_template">默认模板</string>
     <string name="vite_project_template">Vite 模板</string>
+    <string name="unpin">取消顶置</string>
+    <string name="no_projects_yet">还没有任何项目</string>
+    <string name="no_projects_yet_summary">你需要先新建项目</string>
+    <string name="workspace">工作空间</string>
 </resources>

@@ -43,7 +43,7 @@ import io.github.mucute.qwq.nodedev.page.guide.PermissionRequestPage
 import io.github.mucute.qwq.nodedev.page.guide.StartupPage
 import io.github.mucute.qwq.nodedev.shared.R
 import io.github.mucute.qwq.nodedev.shared.composition.local.LocalBackStack
-import io.github.mucute.qwq.nodedev.shared.navigation.NavScreen
+import io.github.mucute.qwq.nodedev.navigation.NavScreen
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppIntent
 import io.github.mucute.qwq.nodedev.viewmodel.NodeAppViewModel
 import kotlinx.coroutines.launch

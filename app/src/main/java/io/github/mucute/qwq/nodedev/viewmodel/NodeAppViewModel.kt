@@ -42,6 +42,20 @@ sealed interface NodeAppIntent : UIIntent {
         val template: ProjectTemplate
     ) : NodeAppIntent
 
+    data object RefreshProjects : NodeAppIntent
+
+    data class PinOrUnpinProject(
+        val project: Project
+    ) : NodeAppIntent
+
+    data class RenameProject(
+        val project: Project
+    ) : NodeAppIntent
+
+    data class DeleteProject(
+        val project: Project
+    ) : NodeAppIntent
+
 }
 
 class NodeAppViewModel : MVIViewModel<NodeAppState, NodeAppIntent, NodeAppDepository>() {
@@ -69,6 +83,14 @@ class NodeAppViewModel : MVIViewModel<NodeAppState, NodeAppIntent, NodeAppDeposi
             is NodeAppIntent.SkipGuide -> _depository.skipGuide(intent.isEnabled)
 
             is NodeAppIntent.NewProject -> _depository.newProject(intent.name, intent.packageName, intent.template)
+
+            NodeAppIntent.RefreshProjects -> _depository.refreshProjects()
+
+            is NodeAppIntent.DeleteProject -> _depository.deleteProject(intent.project)
+
+            is NodeAppIntent.PinOrUnpinProject -> _depository.pinOrUnpinProject(intent.project)
+
+            is NodeAppIntent.RenameProject -> _depository.renameProject(intent.project)
         }
     }
 

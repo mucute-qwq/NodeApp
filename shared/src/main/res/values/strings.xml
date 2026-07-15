@@ -81,4 +81,8 @@
     <string name="project_template">Project Template</string>
     <string name="default_project_template">Default Template</string>
     <string name="vite_project_template">Vite Template</string>
+    <string name="unpin">Unpin</string>
+    <string name="no_projects_yet">There are no projects yet</string>
+    <string name="no_projects_yet_summary">You need to create a new project first</string>
+    <string name="workspace">Workspace</string>
 </resources>

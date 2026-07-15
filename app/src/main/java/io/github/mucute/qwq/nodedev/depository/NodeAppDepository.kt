@@ -1,7 +1,7 @@
 package io.github.mucute.qwq.nodedev.depository
 
 import android.content.Context
-import androidx.compose.ui.text.toLowerCase
+import android.util.Log
 import androidx.core.content.edit
 import de.jonasbroeckmann.kzip.Zip
 import de.jonasbroeckmann.kzip.extractTo
@@ -23,13 +23,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 import kotlinx.io.files.Path
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 import java.io.File
-import java.util.Locale
 import java.util.Locale.getDefault
 
 class NodeAppDepository(state: MutableStateFlow<NodeAppState>, intent: Channel<NodeAppIntent>) :
@@ -157,9 +154,49 @@ class NodeAppDepository(state: MutableStateFlow<NodeAppState>, intent: Channel<N
             }
             packageJsonFile.writeText(JsonFormatted.encodeToString(jsonObject))
 
-            state.update {
-                it.copy()
-            }
+            refreshProjects()
         }
+
+    suspend fun refreshProjects() = withContext(Dispatchers.IO) {
+        val projects = buildList {
+            val rootProjectFolders = ProjectFolder.listFiles() ?: emptyArray()
+            for (rootProjectFolder in rootProjectFolders) {
+                val workspaceFolder = File(rootProjectFolder, ".workspace")
+                if (!workspaceFolder.exists() || workspaceFolder.isFile) {
+                    continue
+                }
+
+                val projectFile = File(workspaceFolder, "project.json")
+                val project: Project = JsonDefault.decodeFromString(projectFile.readText())
+                add(project)
+            }
+        }.sortedBy { it.name }
+
+        state.update {
+            it.copy(projects = projects)
+        }
+    }
+
+    suspend fun deleteProject(project: Project) = withContext(Dispatchers.IO) {
+        Log.e("CurrentProject", project.name)
+        val projectFolder = project.rootProjectFolder
+        if (!projectFolder.exists()) return@withContext
+        projectFolder.deleteRecursively()
+
+        refreshProjects()
+    }
+
+    suspend fun pinOrUnpinProject(project: Project) = withContext(Dispatchers.IO) {
+        val modifiedProject = project.copy(pinned = !project.pinned)
+        val projectFile = project.projectFile
+        if (!projectFile.exists() || projectFile.isDirectory) return@withContext
+        projectFile.writeText(JsonFormatted.encodeToString(modifiedProject))
+
+        refreshProjects()
+    }
+
+    suspend fun renameProject(project: Project) = withContext(Dispatchers.IO) {
+
+    }
 
 }
